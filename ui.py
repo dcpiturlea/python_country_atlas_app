@@ -1,5 +1,5 @@
 import countries
-from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QTextEdit, QListView, QMessageBox, QLabel, \
+from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton,  QListView, QMessageBox, QLabel, \
     QCommandLinkButton, QLineEdit, QListWidgetItem
 from PyQt5 import uic
 import sys
@@ -14,7 +14,7 @@ countries_list = countries.get_all_countries_by_country()
 class UI(QMainWindow):
     def __init__(self):
         super(UI, self).__init__()
-        uic.loadUi("test2.ui", self)
+        uic.loadUi("ui.ui", self)
 
         # declarare label-uri
         self.label_capitala = self.findChild(QLabel, "label_capitala")
