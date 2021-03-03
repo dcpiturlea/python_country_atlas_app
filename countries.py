@@ -1,5 +1,6 @@
 from countryinfo import CountryInfo
-import json
+
+
 
 def get_capital_by_country(country):
     country = CountryInfo(country)
@@ -48,8 +49,9 @@ def get_all_info_for_country(country):
     result = CountryInfo(country)
     return result.info()
 
-
+def get_country_code_from_country(country):
+    result = CountryInfo(country)
+    return result.iso(2).lower()
 
 # Example
 # country_name = 'Taiwan'
-

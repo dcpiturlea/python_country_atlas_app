@@ -6,6 +6,7 @@ import sys
 import os
 import easygui
 import json
+from pygal_maps_world.maps import World
 
 countries_list = countries.get_all_countries_by_country()
 
@@ -68,18 +69,7 @@ class UI(QMainWindow):
             if capitala:
                 path = easygui.filesavebox(msg="", title="Salvati datele", default=selected_country + ".txt",
                                            filetypes=None)
-                global continent
-                continent = self.label_continent.text()
-                global moneda
-                moneda = self.label_moneda.text()
-                global populatie
-                populatie = self.label_populatia.text()
-                global suprafata
-                suprafata = self.label_suprafata.text()
-                global timezone
-                timezone = self.label_timezone.text()
-                global wiki_page_url
-                wiki_page_url = self.label_wiki_page.text()
+
 
                 # salvare date in fisier txt
                 file = open(path, "w")
@@ -93,10 +83,19 @@ class UI(QMainWindow):
                 file.write("Provincii: " + str(provincii) + "\n")
                 file.write("All data: " + json.dumps(countries.get_all_info_for_country(tara)) + "\n")
                 file.close()
+
+                #desenam harta lumii si o salvam
+
+                worldmap_chart = World()
+                worldmap_chart.title = tara
+                worldmap_chart.add('F countries', [countries.get_country_code_from_country(tara)])
+                path = path[:len(path)-4]
+                print(path)
+                worldmap_chart.render_to_file(path + ".svg")
             else:
                 self.prompt_message("Trebuie sa selectati o tara!", "Eroare")
-        except:
-            print("eroare")
+        except Exception as ex:
+            print(ex)
             # self.textEdit.setPlainText(countries.country_to_continent(item.text()))
 
     def clickedLView(self, item):
@@ -123,13 +122,26 @@ class UI(QMainWindow):
             self.commandLinkButton_wiki.show()
             global tara
             tara = str(item.text())
-
+            global continent
+            continent = self.label_continent.text()
+            global moneda
+            moneda = self.label_moneda.text()
+            global populatie
+            populatie = self.label_populatia.text()
+            global suprafata
+            suprafata = self.label_suprafata.text()
+            global timezone
+            timezone = self.label_timezone.text()
+            global wiki_page_url
+            wiki_page_url = self.label_wiki_page.text()
             global provincii
             provincii = []
             judete = countries.get_provinces_by_country(str(item.text()))
             for item in judete:
                 self.qListView_judete.addItem(item)
                 provincii.append(item)
+
+
         except:
             self.label_capitala.setText("")
             self.label_continent.setText("")
