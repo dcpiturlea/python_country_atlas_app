@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>806</width>
+    <height>532</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="gridLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>0</y>
+      <width>781</width>
+      <height>561</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0">
+      <widget class="QScrollArea" name="scrollArea">
+       <property name="widgetResizable">
+        <bool>true</bool>
+       </property>
+       <widget class="QWidget" name="scrollAreaWidgetContents">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>777</width>
+          <height>557</height>
+         </rect>
+        </property>
+        <widget class="QTextEdit" name="textEdit_search">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>50</y>
+           <width>361</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="placeholderText">
+          <string>Cauta o tara</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="pushButton_export">
+         <property name="geometry">
+          <rect>
+           <x>640</x>
+           <y>10</y>
+           <width>121</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Export info</string>
+         </property>
+        </widget>
+        <widget class="QListWidget" name="QListWidget_countries">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>100</y>
+           <width>361</width>
+           <height>321</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_capitala">
+         <property name="geometry">
+          <rect>
+           <x>390</x>
+           <y>230</y>
+           <width>361</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Capitala</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_populatia">
+         <property name="geometry">
+          <rect>
+           <x>390</x>
+           <y>270</y>
+           <width>361</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Populatie</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_continent">
+         <property name="geometry">
+          <rect>
+           <x>390</x>
+           <y>190</y>
+           <width>361</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Continent</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_moneda">
+         <property name="geometry">
+          <rect>
+           <x>390</x>
+           <y>350</y>
+           <width>361</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Moneda</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_suprafata">
+         <property name="geometry">
+          <rect>
+           <x>390</x>
+           <y>310</y>
+           <width>361</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Suprafata</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_wiki_page">
+         <property name="geometry">
+          <rect>
+           <x>400</x>
+           <y>50</y>
+           <width>361</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Pagina wiki</string>
+         </property>
+        </widget>
+        <widget class="QListWidget" name="label_judete">
+         <property name="geometry">
+          <rect>
+           <x>390</x>
+           <y>100</y>
+           <width>361</width>
+           <height>91</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_timezone">
+         <property name="geometry">
+          <rect>
+           <x>390</x>
+           <y>390</y>
+           <width>361</width>
+           <height>31</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>14</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Time zone</string>
+         </property>
+        </widget>
+       </widget>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>806</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
