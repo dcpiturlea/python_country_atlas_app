@@ -46,4 +46,4 @@ def get_all_countries_by_country():
 
 # Example
 # country_name = 'Taiwan'
-#print(get_population2_by_country())
+# print(get_capital_by_country("Wales"))
