@@ -88,7 +88,7 @@ class UI(QMainWindow):
 
                 worldmap_chart = World()
                 worldmap_chart.title = tara
-                worldmap_chart.add('F countries', [countries.get_country_code_from_country(tara)])
+                worldmap_chart.add('Tara aleasa', [countries.get_country_code_from_country(tara)])
                 path = path[:len(path)-4]
                 print(path)
                 worldmap_chart.render_to_file(path + ".svg")
