@@ -1,5 +1,5 @@
 from countryinfo import CountryInfo
-
+import json
 
 def get_capital_by_country(country):
     country = CountryInfo(country)
@@ -44,6 +44,12 @@ def get_all_countries_by_country():
     country = CountryInfo()
     return country.all().keys()
 
+def get_all_info_for_country(country):
+    result = CountryInfo(country)
+    return result.info()
+
+
+
 # Example
 # country_name = 'Taiwan'
-# print(get_capital_by_country("Wales"))
+

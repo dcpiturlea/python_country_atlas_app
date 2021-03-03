@@ -5,14 +5,15 @@ from PyQt5 import uic
 import sys
 import os
 import easygui
+import json
 
 countries_list = countries.get_all_countries_by_country()
+
+
 class UI(QMainWindow):
     def __init__(self):
         super(UI, self).__init__()
         uic.loadUi("test2.ui", self)
-
-
 
         # declarare label-uri
         self.label_capitala = self.findChild(QLabel, "label_capitala")
@@ -31,44 +32,77 @@ class UI(QMainWindow):
         self.label_timezone2 = self.findChild(QLabel, "label_timezone_2")
         self.label_judete = self.findChild(QLabel, "label_judete")
 
-        #declarare label wiki page si ascundere
+        # declarare label wiki page si ascundere
         self.label_wiki_page = self.findChild(QLabel, "label_wiki_page")
         self.label_wiki_page.hide()
 
-        #declarare buton care duce spre wiki
+        # declarare buton care duce spre wiki
         self.commandLinkButton_wiki = self.findChild(QCommandLinkButton, "commandLinkButton_wiki")
         self.commandLinkButton_wiki.clicked.connect(lambda: self.go_to_wiki(self.label_wiki_page.text()))
 
-        #declarare input box search
+        # declarare input box search
         self.textedit = self.findChild(QLineEdit, "textEdit_search")
         self.textedit.textChanged.connect(self.sync_lineEdit)
-        #declarare buton export
+        # declarare buton export
         self.button = self.findChild(QPushButton, "pushButton_export")
         self.button.clicked.connect(self.clickedBtn)
 
-        #declarare list view tari
+        # declarare list view tari
         self.listView = self.findChild(QListView, "QListWidget_countries")
         self.listView.itemClicked.connect(self.clickedLView)
 
-        #declarare list view judete
+        # declarare list view judete
         self.qListView_judete = self.findChild(QListView, "qListWidget_judete")
 
-        #initializare labeluri
+        # initializare labeluri
         self.initialize_interface()
 
-        #populare list cu toate tarile si afisare GUI
+        # populare list cu toate tarile si afisare GUI
         self.populate_view_with_countries()
         self.show()
 
     def clickedBtn(self):
-        desk_path = os.path.join(os.path.join(os.environ['USERPROFILE']), 'desktop')
-        path = easygui.fileopenbox(msg="", title="Alege fisierul", default=desk_path, filetypes=["*.xlsx"],
-                                   multiple=False)
+        try:
+            global capitala
+            capitala = self.label_capitala.text()
+            if capitala:
+                path = easygui.filesavebox(msg="", title="Salvati datele", default=selected_country + ".txt",
+                                           filetypes=None)
+                global continent
+                continent = self.label_continent.text()
+                global moneda
+                moneda = self.label_moneda.text()
+                global populatie
+                populatie = self.label_populatia.text()
+                global suprafata
+                suprafata = self.label_suprafata.text()
+                global timezone
+                timezone = self.label_timezone.text()
+                global wiki_page_url
+                wiki_page_url = self.label_wiki_page.text()
 
-        # self.textEdit.setPlainText(countries.country_to_continent(item.text()))
+                # salvare date in fisier txt
+                file = open(path, "w")
+                file.write("Tara: " + tara + "\n")
+                file.write("Continent: " + continent + "\n")
+                file.write("Capitala: " + capitala + "\n")
+                file.write("Populatie: " + populatie + "\n")
+                file.write("Suprafata: " + suprafata + "\n")
+                file.write("Moneda: " + moneda + "\n")
+                file.write("Ora GMT: " + timezone + "\n")
+                file.write("Provincii: " + str(provincii) + "\n")
+                file.write("All data: " + json.dumps(countries.get_all_info_for_country(tara)) + "\n")
+                file.close()
+            else:
+                self.prompt_message("Trebuie sa selectati o tara!", "Eroare")
+        except:
+            print("eroare")
+            # self.textEdit.setPlainText(countries.country_to_continent(item.text()))
 
     def clickedLView(self, item):
         try:
+            global selected_country
+            selected_country = item.text()
             self.label_capitala2.show()
             self.label_continent2.show()
             self.label_moneda2.show()
@@ -87,10 +121,15 @@ class UI(QMainWindow):
             self.label_suprafata.setText(str(countries.get_area_by_country(str(item.text()))) + " m2")
             self.qListView_judete.show()
             self.commandLinkButton_wiki.show()
+            global tara
+            tara = str(item.text())
 
+            global provincii
+            provincii = []
             judete = countries.get_provinces_by_country(str(item.text()))
             for item in judete:
                 self.qListView_judete.addItem(item)
+                provincii.append(item)
         except:
             self.label_capitala.setText("")
             self.label_continent.setText("")
@@ -107,17 +146,17 @@ class UI(QMainWindow):
             self.label_suprafata2.hide()
             self.label_timezone2.hide()
             self.label_judete.hide()
-            QMessageBox.information(self, "ListWidget", "Nu exista date pentru: " + item.text())
+            self.prompt_message("Nu exista date pentru: " + item.text(), "Eroare")
+
 
     def populate_view_with_countries(self):
         for item in countries_list:
             self.listView.addItem(item.capitalize())
 
-
     def go_to_wiki(self, wiki_page):
         os.system("start \"\" " + wiki_page)
 
-    #input box pentru cautarea tarii
+    # input box pentru cautarea tarii
     def sync_lineEdit(self, text):
         self.listView.clear()
         items = []
@@ -135,7 +174,7 @@ class UI(QMainWindow):
             self.initialize_interface()
 
     def initialize_interface(self):
-        #initializare label-uri
+        # initializare label-uri
         self.label_capitala.setText("")
         self.label_continent.setText("")
         self.label_moneda.setText("")
@@ -153,6 +192,14 @@ class UI(QMainWindow):
         self.label_timezone2.hide()
         self.label_judete.hide()
 
+    def prompt_message(self, text, title):
+        msg = QMessageBox()
+        msg.setText(text)
+        msg.setWindowTitle(title)
+        msg.setIcon(QMessageBox.Information)
+        msg.setStyleSheet("QLabel{ color: white}")
+        msg.setStyleSheet("text-color: rgb(255, 255, 255);")
+        msg.exec_()
 
 app = QApplication(sys.argv)
 window = UI()
