@@ -1,5 +1,5 @@
 import countries
-from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton,  QListView, QMessageBox, QLabel, \
+from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QListView, QMessageBox, QLabel, \
     QCommandLinkButton, QLineEdit, QListWidgetItem
 from PyQt5 import uic
 import sys
@@ -70,7 +70,6 @@ class UI(QMainWindow):
                 path = easygui.filesavebox(msg="", title="Salvati datele", default=selected_country + ".txt",
                                            filetypes=None)
 
-
                 # salvare date in fisier txt
                 file = open(path, "w")
                 file.write("Tara: " + tara + "\n")
@@ -84,12 +83,12 @@ class UI(QMainWindow):
                 file.write("All data: " + json.dumps(countries.get_all_info_for_country(tara)) + "\n")
                 file.close()
 
-                #desenam harta lumii si o salvam
+                # desenam harta lumii si o salvam
 
                 worldmap_chart = World()
                 worldmap_chart.title = tara
                 worldmap_chart.add('Tara aleasa', [countries.get_country_code_from_country(tara)])
-                path = path[:len(path)-4]
+                path = path[:len(path) - 4]
                 print(path)
                 worldmap_chart.render_to_file(path + ".svg")
             else:
@@ -160,7 +159,6 @@ class UI(QMainWindow):
             self.label_judete.hide()
             self.prompt_message("Nu exista date pentru: " + item.text(), "Eroare")
 
-
     def populate_view_with_countries(self):
         for item in countries_list:
             self.listView.addItem(item.capitalize())
@@ -212,6 +210,7 @@ class UI(QMainWindow):
         msg.setStyleSheet("QLabel{ color: white}")
         msg.setStyleSheet("text-color: rgb(255, 255, 255);")
         msg.exec_()
+
 
 app = QApplication(sys.argv)
 window = UI()
